@@ -1,0 +1,126 @@
+# GCCA's parameter setup
+Cora:
+  seed: 39788
+  learning_rate: 0.0005
+  num_hidden: 128
+  num_proj_hidden: 128
+  activation: 'relu'
+  base_model: 'GCNConv'
+  num_layers: 2
+  drop_edge_rate_1: 0.9
+  drop_edge_rate_2: 0.9
+  drop_feature_rate_1: 0.2
+  drop_feature_rate_2: 0.2
+  lambd: 0.005
+  xi: 0.08
+  num_epochs: 100
+  weight_decay: 0.000001
+  nmb_communities: 100
+
+CS:
+  seed: 39788
+  learning_rate: 0.00001
+  num_hidden: 256
+  num_proj_hidden: 256
+  activation: 'rrelu'
+  base_model: 'GCNConv'
+  num_layers: 2
+  drop_edge_rate_1: 0.9
+  drop_edge_rate_2: 0.9
+  drop_feature_rate_1: 0.4
+  drop_feature_rate_2: 0.4
+  lambd: 0.005
+  xi: 0.05
+  num_epochs: 100
+  weight_decay: 0.00001
+  nmb_communities: 100
+
+ogbn:
+  seed: 39788
+  learning_rate: 0.01
+  num_hidden: 128
+  num_proj_hidden: 128
+  activation: 'rrelu'
+  base_model: 'GCNConv'
+  num_layers: 2
+  drop_edge_rate_1: 0.2
+  drop_edge_rate_2: 0.2
+  drop_feature_rate_1: 0.0
+  drop_feature_rate_2: 0.0
+  lambd: 0.005
+  xi: 0.08
+  num_epochs: 20
+  weight_decay: 0.00001
+  nmb_communities: 100
+
+ogbn-products:
+  seed: 39788
+  learning_rate: 0.01
+  num_hidden: 128
+  num_proj_hidden: 128
+  activation: 'rrelu'
+  base_model: 'GCNConv'
+  num_layers: 2
+  drop_edge_rate_1: 0.2
+  drop_edge_rate_2: 0.2
+  drop_feature_rate_1: 0.0
+  drop_feature_rate_2: 0.0
+  lambd: 0.005
+  xi: 0.08
+  num_epochs: 20
+  weight_decay: 0.00001
+  nmb_communities: 100
+
+MUTAG:
+  seed: 39788
+  learning_rate: 0.01
+  num_hidden: 128
+  num_proj_hidden: 128
+  activation: 'rrelu'
+  base_model: 'GCNConv'
+  num_layers: 2
+  drop_edge_rate_1: 0.2
+  drop_edge_rate_2: 0.2
+  drop_feature_rate_1: 0.0
+  drop_feature_rate_2: 0.0
+  lambd: 0.005
+  xi: 0.08
+  num_epochs: 20
+  weight_decay: 0.00001
+  nmb_communities: 100
+
+PTC_MR:
+  seed: 39788
+  learning_rate: 0.01
+  num_hidden: 128
+  num_proj_hidden: 128
+  activation: 'rrelu'
+  base_model: 'GCNConv'
+  num_layers: 2
+  drop_edge_rate_1: 0.2
+  drop_edge_rate_2: 0.2
+  drop_feature_rate_1: 0.0
+  drop_feature_rate_2: 0.0
+  lambd: 0.005
+  xi: 0.08
+  num_epochs: 20
+  weight_decay: 0.00001
+  nmb_communities: 100
+
+MSRC_21:
+  seed: 39788
+  learning_rate: 0.01
+  num_hidden: 128
+  num_proj_hidden: 128
+  activation: 'rrelu'
+  base_model: 'GCNConv'
+  num_layers: 2
+  drop_edge_rate_1: 0.2
+  drop_edge_rate_2: 0.2
+  drop_feature_rate_1: 0.0
+  drop_feature_rate_2: 0.0
+  lambd: 0.005
+  xi: 0.08
+  num_epochs: 20
+  weight_decay: 0.00001
+  nmb_communities: 100
