@@ -41,9 +41,10 @@ def train(model: Model, x, edge_index, D_inv, lambd, xi, nmb_communities):
     z1_graph = readout(z1)
     z2_graph = readout(z2)
     z_raw_graph = readout(z_raw)
-    
-    C = torch.nn.Linear(in_features=z2.shape[1], out_features=nmb_communities, bias=False, device=z1.device)
+    output_dim = z1.size(1)
+    C = torch.nn.Linear(in_features=output_dim, out_features=nmb_communities, bias=False, device=z1.device)
     loss, C = model.loss(z1, z2, z_raw, z1_graph, z2_graph, z_raw_graph, D_inv, C, lambd, xi, nmb_communities)
+
     loss.backward()
     optimizer.step()
 
@@ -167,13 +168,23 @@ def normalize(mx):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset', type=str, default='ogbn')
+    parser.add_argument('--dataset', type=str, default='ogbn')    #'Cora', 'CS', 'ogbn'
     parser.add_argument('--gpu_id', type=int, default=1)
     parser.add_argument('--config', type=str, default='config.yaml')
     parser.add_argument('--batch_size', type=int, default=1024)
     parser.add_argument('--coarsening_ratio', type=float, default=0.1)
     parser.add_argument('--coarsening_method', type=str, default='variation_neighborhoods')
     parser.add_argument('--experiment', type=str, default='fixed') #'fixed', 'random', 'few'
+    
+    parser.add_argument('--nmb_communities', type=int, default=100)
+    parser.add_argument('--num_hidden', type=int, default=128)
+    parser.add_argument('--drop_edge_rate_1', type=float, default=0.9)
+    parser.add_argument('--drop_edge_rate_2', type=float, default=0.9)
+    parser.add_argument('--drop_feature_rate_1', type=float, default=0.2)
+    parser.add_argument('--drop_feature_rate_2', type=float, default=0.2)
+    parser.add_argument('--xi', type=float, default=0.08)
+
+    
     args = parser.parse_args()
     assert args.gpu_id in range(0, 8)
     torch.cuda.set_device(args.gpu_id)
@@ -187,33 +198,35 @@ if __name__ == '__main__':
     activation = ({'relu': F.relu, 'prelu': nn.PReLU(), 'rrelu': nn.RReLU(), })[config['activation']]
     base_model = ({'GCNConv': GCNConv})[config['base_model']]
     num_layers = config['num_layers']
+    lambd = config['lambd']
+    num_epochs = config['num_epochs']
+    weight_decay = config['weight_decay']
+    nmb_communities = config['nmb_communities']
     drop_edge_rate_1 = config['drop_edge_rate_1']
     drop_edge_rate_2 = config['drop_edge_rate_2']
     drop_feature_rate_1 = config['drop_feature_rate_1']
     drop_feature_rate_2 = config['drop_feature_rate_2']
-    nmb_communities = config['nmb_communities']
-    lambd = config['lambd']
     xi = config['xi']
-    num_epochs = config['num_epochs']
-    weight_decay = config['weight_decay']
 
-
-    path = osp.join(osp.expanduser('~'), 'datasets', args.dataset)
-    dataset = get_dataset(path, args.dataset)
+    name = args.dataset
+    
+    path = osp.join(osp.expanduser('~'), 'datasets', name)
+    dataset = get_dataset(path, name)
     data = dataset[0]
+    
     if args.dataset in ["ogbn"]:
         print("transform into undirected edges......")
         data.y = data.y.squeeze(dim=-1)
         data.edge_index = to_undirected(data.edge_index, data.num_nodes)
     if args.dataset == 'Cora':
-        coarsen_features = np.load("/home/thu421/lzy/pvldb/coarse_data/cora/"+str(args.coarsening_ratio)+"cora_coarsen_features.npy")
-        coarsen_edge = np.load("/home/thu421/lzy/pvldb/coarse_data/cora/"+str(args.coarsening_ratio)+"cora_coarsen_edge.npy")
+        coarsen_features = np.load("../data/"+str(args.coarsening_ratio)+"cora_coarsen_features.npy")
+        coarsen_edge = np.load("../data/"+str(args.coarsening_ratio)+"cora_coarsen_edge.npy")
     elif args.dataset == 'CS':
-        coarsen_features = np.load("/home/thu421/lzy/pvldb/coarse_data/cs/"+str(args.coarsening_ratio)+"coarsen_features_np.npy")
-        coarsen_edge = np.load("/home/thu421/lzy/pvldb/coarse_data/cs/"+str(args.coarsening_ratio)+"coarsen_edge_np.npy")
+        coarsen_features = np.load("../data/"+str(args.coarsening_ratio)+"coarsen_features_np.npy")
+        coarsen_edge = np.load("../data/"+str(args.coarsening_ratio)+"coarsen_edge_np.npy")
     elif args.dataset == 'ogbn':
-        coarsen_features = np.load("/home/thu421/lzy/pvldb/coarse_data/ogbn/"+str(args.coarsening_ratio)+"coarsen_features_np.npy")
-        coarsen_edge = np.load("/home/thu421/lzy/pvldb/coarse_data/ogbn/"+str(args.coarsening_ratio)+"coarsen_edge_np.npy")
+        coarsen_features = np.load("../data/"+str(args.coarsening_ratio)+"coarsen_features_np.npy")
+        coarsen_edge = np.load("../data/"+str(args.coarsening_ratio)+"coarsen_edge_np.npy")
 
 
     coarsen_features = torch.from_numpy(coarsen_features)
@@ -226,6 +239,7 @@ if __name__ == '__main__':
     adj = adj + adj.T.multiply(adj.T > adj) - adj.multiply(adj.T > adj)
     adj = adj + sp.eye(adj.shape[0])
     adj = normalize(adj)
+
     I_NN_row = np.arange(N)
     I_NN_data = np.ones(N)
     I_NN = sp.coo_matrix((I_NN_data, (I_NN_row, I_NN_row)), shape=(N, N), dtype=np.float32)
@@ -233,12 +247,6 @@ if __name__ == '__main__':
     D_inv = sp.linalg.inv(D)
     D_inv = np.transpose(D_inv)
     D_inv = sparse_mx_to_torch_sparse_tensor(D_inv)
-
-    # adj = sparse_mx_to_torch_sparse_tensor(adj)
-    # adj = adj.to_dense()
-    # I_NN = torch.eye(N, device=adj.device)
-    # D =  I_NN - (lambd/xi) * (adj + adj.t())
-    # D_inv = D.inverse()
     
     device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
     data = data.to(device)
@@ -266,7 +274,6 @@ if __name__ == '__main__':
 
     # testing phase
     print("=== Final ===")
-    print("ratio: ", args.coarsening_ratio)
     for i in range(10):
         test(model, data.x, data.edge_index, data.y, final=True)
 

@@ -83,15 +83,23 @@ class Model(torch.nn.Module):
             Q /= N
         Q *= N # the colomns must sum to 1 so that Q is an assignment
         return Q.t()
+
+
+    def sinkhorn_collapse(self, out, D_inv, lambd, xi, K, N, iters=3):  # xi=0.05固定，lambd要小于xi
+        Q = torch.mm(D_inv, out)
+        Q = Q.T
+        return - Q.t() / (2 * lambd)
         
+
     def loss(self, z1, z2, z_raw, z1_graph, z2_graph, z_raw_graph, D_inv, C, lambd, xi, nmb_communities):
         # 归一化
         z1 = F.normalize(z1)
         z2 = F.normalize(z2)
-        score_t = C(z1)
-        score_s = C(z2)
+        # score_t = C(z1)
+        # score_s = C(z2)
         score_t = z1
         score_s = z2
+        
         N = z1.shape[0]       
         with torch.no_grad():
             q_t = self.sinkhorn(score_t, D_inv, lambd, xi, nmb_communities, N)
