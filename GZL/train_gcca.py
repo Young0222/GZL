@@ -41,10 +41,9 @@ def train(model: Model, x, edge_index, D_inv, lambd, xi, nmb_communities):
     z1_graph = readout(z1)
     z2_graph = readout(z2)
     z_raw_graph = readout(z_raw)
-    output_dim = z1.size(1)
-    C = torch.nn.Linear(in_features=output_dim, out_features=nmb_communities, bias=False, device=z1.device)
+    
+    C = torch.nn.Linear(in_features=z2.shape[1], out_features=nmb_communities, bias=False, device=z1.device)
     loss, C = model.loss(z1, z2, z_raw, z1_graph, z2_graph, z_raw_graph, D_inv, C, lambd, xi, nmb_communities)
-
     loss.backward()
     optimizer.step()
 
@@ -168,27 +167,13 @@ def normalize(mx):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset', type=str, default='ogbn')    #'Cora', 'CS', 'ogbn'
+    parser.add_argument('--dataset', type=str, default='ogbn')
     parser.add_argument('--gpu_id', type=int, default=1)
     parser.add_argument('--config', type=str, default='config.yaml')
     parser.add_argument('--batch_size', type=int, default=1024)
     parser.add_argument('--coarsening_ratio', type=float, default=0.1)
     parser.add_argument('--coarsening_method', type=str, default='variation_neighborhoods')
     parser.add_argument('--experiment', type=str, default='fixed') #'fixed', 'random', 'few'
-    
-    parser.add_argument('--nmb_communities', type=int, default=100)
-    parser.add_argument('--num_hidden', type=int, default=128)
-    parser.add_argument('--drop_edge_rate_1', type=float, default=0.9)
-    parser.add_argument('--drop_edge_rate_2', type=float, default=0.9)
-    parser.add_argument('--drop_feature_rate_1', type=float, default=0.2)
-    parser.add_argument('--drop_feature_rate_2', type=float, default=0.2)
-    # parser.add_argument('--drop_edge_rate_1', type=float, default=0.2)
-    # parser.add_argument('--drop_edge_rate_2', type=float, default=0.2)
-    # parser.add_argument('--drop_feature_rate_1', type=float, default=0.0)
-    # parser.add_argument('--drop_feature_rate_2', type=float, default=0.0)
-    parser.add_argument('--xi', type=float, default=0.08)
-
-    
     args = parser.parse_args()
     assert args.gpu_id in range(0, 8)
     torch.cuda.set_device(args.gpu_id)
@@ -202,42 +187,24 @@ if __name__ == '__main__':
     activation = ({'relu': F.relu, 'prelu': nn.PReLU(), 'rrelu': nn.RReLU(), })[config['activation']]
     base_model = ({'GCNConv': GCNConv})[config['base_model']]
     num_layers = config['num_layers']
+    drop_edge_rate_1 = config['drop_edge_rate_1']
+    drop_edge_rate_2 = config['drop_edge_rate_2']
+    drop_feature_rate_1 = config['drop_feature_rate_1']
+    drop_feature_rate_2 = config['drop_feature_rate_2']
+    nmb_communities = config['nmb_communities']
     lambd = config['lambd']
+    xi = config['xi']
     num_epochs = config['num_epochs']
     weight_decay = config['weight_decay']
-    # name = config['dataset']
-    # nmb_communities = config['nmb_communities']
-    # num_hidden = config['num_hidden']
-    # drop_edge_rate_1 = config['drop_edge_rate_1']
-    # drop_edge_rate_2 = config['drop_edge_rate_2']
-    # drop_feature_rate_1 = config['drop_feature_rate_1']
-    # drop_feature_rate_2 = config['drop_feature_rate_2']
-    # xi = config['xi']
 
-    name = args.dataset
-    nmb_communities = args.nmb_communities
-    num_hidden = args.num_hidden
-    drop_edge_rate_1 = args.drop_edge_rate_1
-    drop_edge_rate_2 = args.drop_edge_rate_2
-    drop_feature_rate_1 = args.drop_feature_rate_1
-    drop_feature_rate_2 = args.drop_feature_rate_2
-    xi = args.xi
-    
-    path = osp.join(osp.expanduser('~'), 'datasets', name)
-    dataset = get_dataset(path, name)
+
+    path = osp.join(osp.expanduser('~'), 'datasets', args.dataset)
+    dataset = get_dataset(path, args.dataset)
     data = dataset[0]
-    # torch.set_printoptions(profile='full')
-    # print("data.edge_index: ", data.x[2])
-    # sys.exit()
-    
     if args.dataset in ["ogbn"]:
         print("transform into undirected edges......")
         data.y = data.y.squeeze(dim=-1)
         data.edge_index = to_undirected(data.edge_index, data.num_nodes)
-
-    # args.num_features, args.num_classes, candidate, C_list, Gc_list = coarsening(data, 1-args.coarsening_ratio, args.coarsening_method)
-    # data, coarsen_features, coarsen_edge = load_data(data, candidate, C_list, Gc_list, args.experiment)
-    
     if args.dataset == 'Cora':
         coarsen_features = np.load("/home/thu421/lzy/pvldb/coarse_data/cora/"+str(args.coarsening_ratio)+"cora_coarsen_features.npy")
         coarsen_edge = np.load("/home/thu421/lzy/pvldb/coarse_data/cora/"+str(args.coarsening_ratio)+"cora_coarsen_edge.npy")
@@ -259,7 +226,6 @@ if __name__ == '__main__':
     adj = adj + adj.T.multiply(adj.T > adj) - adj.multiply(adj.T > adj)
     adj = adj + sp.eye(adj.shape[0])
     adj = normalize(adj)
-
     I_NN_row = np.arange(N)
     I_NN_data = np.ones(N)
     I_NN = sp.coo_matrix((I_NN_data, (I_NN_row, I_NN_row)), shape=(N, N), dtype=np.float32)
@@ -276,7 +242,6 @@ if __name__ == '__main__':
     
     device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
     data = data.to(device)
-    # adj = adj.to(device)
     D_inv = D_inv.to(device)
     edges = edges.to(device)
     coarsen_features = coarsen_features.to(device)
@@ -296,13 +261,12 @@ if __name__ == '__main__':
         else:
             loss = train(model, coarsen_features, edges, D_inv, lambd, xi, nmb_communities)
         now = t()
-        if epoch == num_epochs:
-            print(f'(T) | Epoch={epoch:03d}, loss={loss:.4f}, 'f'this epoch {now - prev:.4f}, total {now - start:.4f}')
+        print(f'(T) | Epoch={epoch:03d}, loss={loss:.4f}, 'f'this epoch {now - prev:.4f}, total {now - start:.4f}')
         prev = now
 
     # testing phase
     print("=== Final ===")
-    print("ratio: ", args.coarsening_ratio, "k: ", args.nmb_communities,"h: ", args.num_hidden,"p1: ", args.drop_edge_rate_1,"p2: ", args.drop_edge_rate_2,"p3: ", args.drop_feature_rate_1,"p4: ", args.drop_feature_rate_2,"x: ", args.xi)
-    for i in range(1):
+    print("ratio: ", args.coarsening_ratio)
+    for i in range(10):
         test(model, data.x, data.edge_index, data.y, final=True)
 

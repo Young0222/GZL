@@ -1,4 +1,4 @@
-# GCCA's parameter setup
+# GZL's parameter setup
 Cora:
   seed: 39788
   learning_rate: 0.0005
