@@ -28,6 +28,19 @@ The results are as follows (7 colors indicate 7 different classes):
 |   DGI   | 0.026580125           |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/dgi_tsne_result.png" width="150">|
 |   MVGRL | 0.12027985            |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/mvgrl_tsne_result.png" width="150">|
 
-## Additional experiment 2: sensitivity analysis of other hypermarameters.
-Here we provide GZL's sensitivity analysis of other hyperparameters including: learning rate, weight decay, and \alpha.
+## Additional experiment 2: sensitivity experimental results of other hypermarameters.
+Here we provide GZL's sensitivity experimental results of other hyperparameters including: learning rate ![1](http://latex.codecogs.com/svg.latex?\theta), weight decay ![2](http://latex.codecogs.com/svg.latex?\eta), and ![3](http://latex.codecogs.com/svg.latex?\alpha).
 Because the conclusions on the other datasets are the same as Cora, we only show the related results on Cora.
+
+Some simple conclusions: 
+
+1. Learning rate: 5e-4 and 1e-3 are good choices for GZL, but 5e-5 and 1e-4 are bad ones.
+
+2. Weight decay: Using 1e-7, 1e-6, and 1e-5 result in the similar accuracy results.
+
+3. Parameter ![4](http://latex.codecogs.com/svg.latex?\alpha): Using 1e-7, 1e-6, and 1e-5 result in the similar accuracy results.
+
+
+| **Learning rate** | **Weight decay** |**![4](http://latex.codecogs.com/svg.latex?\alpha)** |
+| ------- | ----------------------|----------------------|
+| <img src="https://github.com/Young0222/pvldb2023/blob/main/figures/LR.png" width="150"> | <img src="https://github.com/Young0222/pvldb2023/blob/main/figures/WD.png" width="150">|<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/alpha.png" width="150">|
