@@ -30,15 +30,16 @@ The results are as follows (7 colors indicate 7 different classes):
 
 ## Additional experiment 2: sensitivity experimental results of other hypermarameters.
 Here we provide GZL's sensitivity experimental results of other hyperparameters including: learning rate ![1](http://latex.codecogs.com/svg.latex?\theta), weight decay ![2](http://latex.codecogs.com/svg.latex?\eta), and ![3](http://latex.codecogs.com/svg.latex?\alpha).
-Because the conclusions on the other datasets are the same as Cora, we only show the related results on Cora.
 
 Some simple conclusions: 
 
-1. Learning rate: 5e-4 and 1e-3 are good choices for GZL, but 5e-5 and 1e-4 are bad ones.
+1. Learning rate ![1](http://latex.codecogs.com/svg.latex?\theta): 5e-4 and 1e-3 are good choices for GZL, but 5e-5 and 1e-4 are bad ones.
 
-2. Weight decay: Using 1e-7, 1e-6, and 1e-5 result in the similar accuracy results.
+2. Weight decay ![2](http://latex.codecogs.com/svg.latex?\eta): Using 1e-7, 1e-6, and 1e-5 result in the similar accuracy results.
 
 3. Parameter ![4](http://latex.codecogs.com/svg.latex?\alpha): Using 1e-7, 1e-6, and 1e-5 result in the similar accuracy results.
+
+For other dataset, their conclusions are similar to Cora, e.g., .
 
 
 | **Learning rate** | **Weight decay** |**![4](http://latex.codecogs.com/svg.latex?\alpha)** |
