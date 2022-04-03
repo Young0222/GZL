@@ -6,9 +6,10 @@
 2. Running GZL model: cd GZL; python train_gzl.py --dataset Cora --coarsening_ratio 0.1
 
 Note that due to the limitation of upload size, we only provide an example dataset Cora with a zoom-out rate of 0.1. We will provide more experimental codes and datsets later.
+
 The codes of baselines are in the folders of baseline(contrastive) and baseline(deepwalk+node2vec).
 
-## Additional experiments: embedding visualization.
+## Additional experiment 1: embedding visualization.
 We plot the t-SNE 2D projection of the learned node embedding for the CORA dataset with a zoom-out rate of 0.1, and use silhouette scores (SIL) to evaluate the results.
 
 Silhouette refers to a method of interpretation and validation of consistency within clusters of data. The technique provides a succinct graphical representation of how well each object has been classified.
