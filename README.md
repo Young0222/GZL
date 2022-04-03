@@ -28,3 +28,6 @@ The results are as follows (7 colors indicate 7 different classes):
 |   DGI   | 0.026580125           |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/dgi_tsne_result.png" width="150">|
 |   MVGRL | 0.12027985            |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/mvgrl_tsne_result.png" width="150">|
 
+## Additional experiment 2: sensitivity analysis of other hypermarameters.
+Here we provide GZL's sensitivity analysis of other hyperparameters including: learning rate, weight decay, and \alpha.
+Because the conclusions on the other datasets are the same as Cora, we only show the related results on Cora.
