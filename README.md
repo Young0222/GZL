@@ -15,7 +15,7 @@ The silhouette score ranges from −1 to +1, where **a high value** indicates th
 
 | **Methods** | **Silhouette score (SIL)** | **2D t-SNE projections** |
 | ------- | ----------------------|----------------------|
-|   GZL   | 0.17586839            |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/gzl_tsne_result.png" width="150">|
+|   GZL   | **0.17586839(Best)**  |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/gzl_tsne_result.png" width="150">|
 |   GRACE | 0.119015895           |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/grace_tsne_result.png" width="150">|
 |   BGRL  | 0.14092626            |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/bgrl_tsne_result.png" width="150">|
 |   GCA   | 0.103519626           |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/gca_tsne_result.png" width="150">|
