@@ -1,9 +1,12 @@
 # Supplemental material of'Fast Unsupervised Graph Embedding via Graph Zoom Learning' (submitted to VLDB)
 
-## Reproducibe our result.
+## Reproducibe our experimental results on Cora.
 1. Install: pip install -m requirement.txt
 
 2. Running GZL model: cd GZL; python train_gzl.py --dataset Cora --coarsening_ratio 0.1
+
+Note that due to the limitation of upload size, we only provide an example dataset Cora with a zoom-out rate of 0.1. We will provide more experimental codes and datsets later.
+The codes of baseline models are in 
 
 ## Additional experiments: embedding visualization.
 We plot the t-SNE 2D projection of the learned node embedding for the CORA dataset with a zoom-out rate of 0.1, and use silhouette scores (SIL) to evaluate the results.
