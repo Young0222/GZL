@@ -1,11 +1,11 @@
-# Supplemental material of'Fast Unsupervised Graph Embedding via Graph Zoom Learning' (submitted to VLDB)
+# Supplemental material of 'Fast Unsupervised Graph Embedding via Graph Zoom Learning' (submitted to VLDB)
 
-## Reproducibe our experimental results on Cora.
+## Reproduce our experimental results on Cora.
 1. Install: pip install -m requirement.txt
 
 2. Running GZL model: cd GZL; python train_gzl.py --dataset Cora --coarsening_ratio 0.1
 
-Note that due to the limitation of upload size, we only provide an example dataset Cora with a zoom-out rate of 0.1. We will provide more experimental codes and datsets later.
+Note that due to the limitation of upload size, we only provide an example dataset Cora with a zoom-out rate of 0.1. We will provide more experimental codes and datasets later.
 
 The codes of baselines are in the folders of baseline(contrastive) and baseline(deepwalk+node2vec).
 
@@ -28,7 +28,7 @@ The results are as follows (7 colors indicate 7 different classes):
 |   DGI   | 0.026580125           |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/dgi_tsne_result.png" width="150">|
 |   MVGRL | 0.12027985            |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/mvgrl_tsne_result.png" width="150">|
 
-## Additional experiment 2: sensitivity experimental results of other hypermarameters.
+## Additional experiment 2: sensitivity experimental results of other hyperparameters.
 Here we provide GZL's sensitivity experimental results of other hyperparameters including: learning rate ![1](http://latex.codecogs.com/svg.latex?\theta), weight decay ![2](http://latex.codecogs.com/svg.latex?\eta), and ![3](http://latex.codecogs.com/svg.latex?\alpha).
 
 Some simple conclusions: 
@@ -39,7 +39,7 @@ Some simple conclusions:
 
 3. Parameter ![4](http://latex.codecogs.com/svg.latex?\alpha): Using 0.0 and 1.0 bring better results than others.
 
-For other dataset, their conclusions are similar to Cora, e.g., using a learning rate of 1e-5 is a good choice for GZL on CS, using a weight decay of 1e-5 bring better results than other choices.
+For other datasets, their conclusions are similar to Cora, e.g., using a learning rate of 1e-5 is a good choice for GZL on CS, using a weight decay of 1e-5 brings better results than other choices.
 
 
 | **Learning rate** | **Weight decay** |**![4](http://latex.codecogs.com/svg.latex?\alpha)** |
