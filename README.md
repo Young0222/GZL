@@ -28,7 +28,7 @@ The results are as follows (7 colors indicate 7 different classes):
 |   DGI   | 0.026580125           |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/dgi_tsne_result.png" width="150">|
 |   MVGRL | 0.12027985            |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/mvgrl_tsne_result.png" width="150">|
 
-## Additional experiment 2: sensitivity experimental results of other hyperparameters.
+## Additional experiment 2: results of sensitivity experiments to other hyperparameters in GZL.
 Here we provide GZL's sensitivity experimental results of other hyperparameters including: learning rate ![1](http://latex.codecogs.com/svg.latex?\theta), weight decay ![2](http://latex.codecogs.com/svg.latex?\eta), and parameter ![3](http://latex.codecogs.com/svg.latex?\alpha).
 
 Some simple conclusions: 
