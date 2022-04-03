@@ -5,5 +5,9 @@
 
 2. Running GZL model: cd GZL; python train_gzl.py --dataset Cora --coarsening_ratio 0.1
 
-## Embedding visualization.
+## Embedding visualization (using TSNE).
+1. GZL:
+![image](https://github.com/Young0222/pvldb2023/blob/main/figures/gzl_tsne_result.png)
+
+2. GRACE:
 
