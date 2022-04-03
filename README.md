@@ -5,7 +5,7 @@
 
 2. Running GZL model: cd GZL; python train_gzl.py --dataset Cora --coarsening_ratio 0.1
 
-## Additional experiments: embedding visualization (using t-SNE).
+## Additional experiments: embedding visualization.
 We plot the t-SNE 2D projection of the learned node embedding for the CORA dataset with a zoom-out rate of 0.1, and use silhouette scores (SIL) to evaluate the results.
 
 Silhouette refers to a method of interpretation and validation of consistency within clusters of data. The technique provides a succinct graphical representation of how well each object has been classified.
