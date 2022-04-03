@@ -10,7 +10,7 @@ We plot the t-SNE 2D projection of the learned node embedding for the CORA datas
 
 Silhouette refers to a method of interpretation and validation of consistency within clusters of data. The technique provides a succinct graphical representation of how well each object has been classified.
 
-The silhouette score ranges from −1 to +1, where **a high value** indicates that the object is well matched to its own cluster and poorly matched to neighboring clusters
+The silhouette score ranges from −1 to +1, where **a high value** indicates that the object is well matched to its own cluster and poorly matched to neighboring clusters.
 
 The results are as follows (7 colors indicate 7 different classes):
 
