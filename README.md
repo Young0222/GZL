@@ -12,6 +12,7 @@ Silhouette refers to a method of interpretation and validation of consistency wi
 
 The silhouette score ranges from −1 to +1, where **a high value** indicates that the object is well matched to its own cluster and poorly matched to neighboring clusters
 
+The results are as follows (7 colors indicate 7 different classes):
 
 | **Methods** | **Silhouette score (SIL)** | **2D t-SNE projections** |
 | ------- | ----------------------|----------------------|
