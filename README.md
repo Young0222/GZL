@@ -35,13 +35,13 @@ Some simple conclusions:
 
 1. Learning rate ![1](http://latex.codecogs.com/svg.latex?\theta): 5e-4 and 1e-3 are good choices for GZL, but 5e-5 and 1e-4 are bad ones.
 
-2. Weight decay ![2](http://latex.codecogs.com/svg.latex?\eta): Using 1e-7, 1e-6, and 1e-5 result in the similar accuracy results.
+2. Weight decay ![2](http://latex.codecogs.com/svg.latex?\eta): Using 1e-7, 1e-6, and 1e-5 bring better results than others.
 
-3. Parameter ![4](http://latex.codecogs.com/svg.latex?\alpha): Using 1e-7, 1e-6, and 1e-5 result in the similar accuracy results.
+3. Parameter ![4](http://latex.codecogs.com/svg.latex?\alpha): Using 0.0 and 1.0 bring better results than others.
 
-For other dataset, their conclusions are similar to Cora, e.g., .
+For other dataset, their conclusions are similar to Cora, e.g., using a learning rate of 1e-5 is a good choice for GZL on CS, using a weight decay of 1e-5 bring better results than other choices.
 
 
 | **Learning rate** | **Weight decay** |**![4](http://latex.codecogs.com/svg.latex?\alpha)** |
 | ------- | ----------------------|----------------------|
-| <img src="https://github.com/Young0222/pvldb2023/blob/main/figures/LR.png" width="150"> | <img src="https://github.com/Young0222/pvldb2023/blob/main/figures/WD.png" width="150">|<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/alpha.png" width="150">|
+| <img src="https://github.com/Young0222/pvldb2023/blob/main/figures/LR.png" width="150"> | <img src="https://github.com/Young0222/pvldb2023/blob/main/figures/WD.png" width="150">|<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/alpha_new.png" width="150">|
