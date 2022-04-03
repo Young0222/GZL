@@ -29,7 +29,7 @@ The results are as follows (7 colors indicate 7 different classes):
 |   MVGRL | 0.12027985            |<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/mvgrl_tsne_result.png" width="150">|
 
 ## Additional experiment 2: sensitivity experimental results of other hyperparameters.
-Here we provide GZL's sensitivity experimental results of other hyperparameters including: learning rate ![1](http://latex.codecogs.com/svg.latex?\theta), weight decay ![2](http://latex.codecogs.com/svg.latex?\eta), and ![3](http://latex.codecogs.com/svg.latex?\alpha).
+Here we provide GZL's sensitivity experimental results of other hyperparameters including: learning rate ![1](http://latex.codecogs.com/svg.latex?\theta), weight decay ![2](http://latex.codecogs.com/svg.latex?\eta), and parameter ![3](http://latex.codecogs.com/svg.latex?\alpha).
 
 Some simple conclusions: 
 
@@ -42,6 +42,6 @@ Some simple conclusions:
 For other datasets, their conclusions are similar to Cora, e.g., using a learning rate of 1e-5 is a good choice for GZL on CS, using a weight decay of 1e-5 brings better results than other choices.
 
 
-| **Learning rate** | **Weight decay** |**![4](http://latex.codecogs.com/svg.latex?\alpha)** |
+| **Learning rate** | **Weight decay** |**Parameter ![4](http://latex.codecogs.com/svg.latex?\alpha)** |
 | ------- | ----------------------|----------------------|
 | <img src="https://github.com/Young0222/pvldb2023/blob/main/figures/LR.png" width="150"> | <img src="https://github.com/Young0222/pvldb2023/blob/main/figures/WD.png" width="150">|<img src="https://github.com/Young0222/pvldb2023/blob/main/figures/alpha_new.png" width="150">|
