@@ -39,6 +39,6 @@ Some simple conclusions:
 For other datasets, their conclusions are similar to Cora, e.g., using a learning rate of 1e-5 is a good choice for GZL on CS, using a weight decay of 1e-5 brings better results than other choices.
 
 
-| **Learning rate** | **Weight decay** |**Parameter ![4](http://latex.codecogs.com/svg.latex?\alpha)** |
-| ------- | ----------------------|----------------------|
+| **Learning rate** | **Weight decay** |
+| ------- | ----------------------|
 | <img src="https://github.com/Young0222/pvldb2023/blob/main/figures/LR.png" width="150"> | <img src="https://github.com/Young0222/pvldb2023/blob/main/figures/WD.png" width="150">|
