@@ -10,5 +10,5 @@ Note that due to the limitation of upload size, we only provide an example datas
 The codes of baselines are in the folders of baseline(contrastive) and baseline(deepwalk+node2vec).
 
 ## Additional experiments.
-Please see 
-[GZL_supplementary_materials.pdf](https://github.com/Young0222/pvldb2023/files/9121025/GZL_supplementary_materials.pdf)
+Please see [GZL_supplementary_material.pdf](https://github.com/Young0222/pvldb2023/files/9121028/GZL_supplementary_material.pdf)
+
