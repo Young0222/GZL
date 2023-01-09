@@ -1,4 +1,4 @@
-# Supplemental material of 'Fast Unsupervised Graph Embedding via Graph Zoom Learning'
+# 'Fast Unsupervised Graph Embedding via Graph Zoom Learning'
 
 ## Reproduce our experimental results on Cora.
 1. Install: pip install -m requirement.txt
